@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">yee_assignment4</string>
+    <string name="addRest">Add</string>
+    <string name="clearRest">Clear All</string>
+    <string name="loadRest">Load</string>
+    <string name="pref">Preferences</string>
+    <string name="settings">Settings</string>
+</resources>
