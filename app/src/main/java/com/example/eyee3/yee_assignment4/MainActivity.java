@@ -1,8 +1,16 @@
 package com.example.eyee3.yee_assignment4;
 
+//Resources:
+//Android documentation
+//Text style: https://stackoverflow.com/questions/4792260/how-do-you-change-text-to-bold-in-android
+//setEmptyView: https://stackoverflow.com/questions/12483508/setemptyview-on-listview-not-showing-its-view-in-a-android-app
+//Get spinner value: https://stackoverflow.com/questions/1947933/how-to-get-spinner-value
+//Rating bar value: https://stackoverflow.com/questions/7332537/how-to-get-ratingbar-value
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothClass;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,14 +19,19 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,14 +50,30 @@ public class MainActivity extends AppCompatActivity {
         restLabel = (TextView) findViewById(R.id.restList);
         restList = (ListView) findViewById(R.id.restaurantList);
 
-        myToolbar.setTitle("Discount Yelp");
+        myToolbar.setTitle("Chapman Yelp");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+
+        restList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String currentString = restList.getItemAtPosition(position).toString();
+                String [] separated = currentString.split(Pattern.quote("\n"));
+                Intent i = new Intent(MainActivity.this, viewRest.class);
+
+                i.putExtra("name", separated[0]);
+                i.putExtra("phone", separated[1]);
+                i.putExtra("website", separated[2]);
+                i.putExtra("rating", separated[3]);
+                i.putExtra("category", separated[4]);
+
+                startActivityForResult(i, 2);
+            }
+        });
 
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -66,7 +95,11 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                //Clear whole listview
+                                final ArrayAdapter<String> testAdapter = new ArrayAdapter<String>
+                                        (MainActivity.this, android.R.layout.simple_list_item_1, RestaurantsList);
+                                restList.setAdapter(testAdapter);
+                                testAdapter.clear();
+                                testAdapter.notifyDataSetChanged();
                                 //finish();
                             }
                         })
@@ -92,6 +125,39 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (MainActivity.this, android.R.layout.simple_list_item_1, RestaurantsList);
+        restList.setAdapter(adapter);
+
+        if(requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK) {
+                String nameReturn = data.getStringExtra("nameReturn");
+                String phoneReturn = data.getStringExtra("phoneReturn");
+                String websiteReturn = data.getStringExtra("websiteReturn");
+                float ratingReturn = data.getFloatExtra("ratingReturn", 1);
+                String categoryReturn = data.getStringExtra("categoryReturn");
+
+                /*Log.d("MainActivity", "RETURNED VALUES: " + nameReturn);
+                Log.d("MainActivity", "RETURNED VALUES: " + phoneReturn);
+                Log.d("MainActivity", "RETURNED VALUES: " + websiteReturn);
+                Log.d("MainActivity", "RETURNED VALUES: " + ratingReturn);
+                Log.d("MainActivity", "RETURNED VALUES: " + categoryReturn);*/
+
+                RestaurantsList.add("Name: " + nameReturn + "\n"
+                        + "Phone: " + phoneReturn + "\n"
+                        + "Website: " + websiteReturn + "\n"
+                        + "Rating: " + ratingReturn + " Stars" + "\n"
+                        + "Category: " + categoryReturn);
+
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 

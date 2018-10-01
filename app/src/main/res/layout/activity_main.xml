@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/restList"
         android:text="Restaurant List"
+        android:textStyle="bold"
         android:textSize="8pt"
         android:gravity="center"
         android:layout_below="@+id/my_toolbar"/>
