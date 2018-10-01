@@ -37,6 +37,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/websiteView"
         android:textSize="8pt"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:autoLink="web"
         android:layout_below="@+id/phoneView"/>
 
     <TextView

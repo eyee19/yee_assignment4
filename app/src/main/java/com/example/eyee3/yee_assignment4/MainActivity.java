@@ -6,6 +6,8 @@ package com.example.eyee3.yee_assignment4;
 //setEmptyView: https://stackoverflow.com/questions/12483508/setemptyview-on-listview-not-showing-its-view-in-a-android-app
 //Get spinner value: https://stackoverflow.com/questions/1947933/how-to-get-spinner-value
 //Rating bar value: https://stackoverflow.com/questions/7332537/how-to-get-ratingbar-value
+//Dial a number: https://stackoverflow.com/questions/22372561/android-dial-a-phone-number-programmatically
+//Website onClick: https://stackoverflow.com/questions/8352208/how-do-i-launch-a-url-in-browser-from-an-onclick-event-on-a-textview
 
 import android.app.Activity;
 import android.app.AlertDialog;

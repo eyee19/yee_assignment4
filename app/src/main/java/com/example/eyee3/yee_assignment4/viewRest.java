@@ -69,9 +69,21 @@ public class viewRest extends AppCompatActivity {
                 String number = bundle.getString("phone");
                 String sub = number.substring(7);
                 Uri numberToCall = Uri.parse("tel:" + sub);
-                Log.d("viewRest", String.valueOf(numberToCall));
+                //Log.d("viewRest", String.valueOf(numberToCall));
                 Intent callIntent = new Intent(Intent.ACTION_DIAL, numberToCall);
                 startActivity(callIntent);
+            }
+        });
+
+        website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String webLink = bundle.getString("website");
+                String webSub = webLink.substring(9);
+                String combined = "https://" + webSub;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse(combined));
+                startActivity(browserIntent);
             }
         });
 

@@ -52,4 +52,11 @@
         android:layout_marginRight="16dp"
         android:checked="true"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/savePref"
+        android:text="Save Preferences"
+        android:layout_below="@+id/box3"/>
+
 </RelativeLayout>

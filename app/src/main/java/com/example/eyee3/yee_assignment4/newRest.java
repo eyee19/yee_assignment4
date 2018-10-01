@@ -113,7 +113,7 @@ public class newRest extends AppCompatActivity {
                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                         notificationManager.notify(0, notification);
 
-                        //Toast.makeText(newRest.this, nameReturn + " received a 5 star rating!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(newRest.this, nameReturn + " received a 5 star rating!", Toast.LENGTH_LONG).show();
                         /*Intent broadcast = new Intent("my.action.string");
                         broadcast.putExtra("extra", nameReturn);
                         sendBroadcast(broadcast);*/
