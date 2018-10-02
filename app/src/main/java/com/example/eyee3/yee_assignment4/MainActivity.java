@@ -30,12 +30,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Serializable {
 
     Toolbar myToolbar;
     TextView restLabel;
@@ -140,11 +141,21 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {
-                String nameReturn = data.getStringExtra("nameReturn");
+                /*String nameReturn = data.getStringExtra("nameReturn");
                 String phoneReturn = data.getStringExtra("phoneReturn");
                 String websiteReturn = data.getStringExtra("websiteReturn");
                 float ratingReturn = data.getFloatExtra("ratingReturn", 1);
-                String categoryReturn = data.getStringExtra("categoryReturn");
+                String categoryReturn = data.getStringExtra("categoryReturn");*/
+
+                Restaurant received = (Restaurant) data.getSerializableExtra("newRest");
+                String nameReturn = received.getName();
+                String phoneReturn = received.getPhone();
+                String websiteReturn = received.getWebsite();
+                float ratingReturn = received.getRating();
+                String categoryReturn = received.getCategory();
+
+                //RestaurantsList.toArray(getIntent().getSerializableExtra("newRest"));
+                //RestaurantsList.add(getIntent().getSerializableExtra("newRest"));
 
                 /*Log.d("MainActivity", "RETURNED VALUES: " + nameReturn);
                 Log.d("MainActivity", "RETURNED VALUES: " + phoneReturn);

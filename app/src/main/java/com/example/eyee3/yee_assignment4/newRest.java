@@ -93,11 +93,15 @@ public class newRest extends AppCompatActivity {
                     float ratingReturn = rating.getRating();
                     String categoryReturn = category.getSelectedItem().toString();
 
-                    backHome.putExtra("nameReturn", nameReturn);
+                    Restaurant newRest = new Restaurant(nameReturn, phoneReturn, websiteReturn, ratingReturn, categoryReturn);
+
+                    backHome.putExtra("newRest", newRest);
+
+                    /*backHome.putExtra("nameReturn", nameReturn);
                     backHome.putExtra("phoneReturn", phoneReturn);
                     backHome.putExtra("websiteReturn", websiteReturn);
                     backHome.putExtra("ratingReturn", ratingReturn);
-                    backHome.putExtra("categoryReturn", categoryReturn);
+                    backHome.putExtra("categoryReturn", categoryReturn);*/
 
                     if (ratingReturn == 5.0) {
                         PendingIntent pi = PendingIntent.getActivity(newRest.this, 0, new Intent(newRest.this, viewRest.class), 0);
