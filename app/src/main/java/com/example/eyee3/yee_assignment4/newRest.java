@@ -97,14 +97,8 @@ public class newRest extends AppCompatActivity {
 
                     backHome.putExtra("newRest", newRest);
 
-                    /*backHome.putExtra("nameReturn", nameReturn);
-                    backHome.putExtra("phoneReturn", phoneReturn);
-                    backHome.putExtra("websiteReturn", websiteReturn);
-                    backHome.putExtra("ratingReturn", ratingReturn);
-                    backHome.putExtra("categoryReturn", categoryReturn);*/
-
                     if (ratingReturn == 5.0) {
-                        PendingIntent pi = PendingIntent.getActivity(newRest.this, 0, new Intent(newRest.this, viewRest.class), 0);
+                        /*PendingIntent pi = PendingIntent.getActivity(newRest.this, 0, new Intent(newRest.this, viewRest.class), 0);
                         Resources r = getResources();
                         Notification notification = new NotificationCompat.Builder(newRest.this)
                                 .setSmallIcon(android.R.drawable.ic_menu_add)
@@ -118,7 +112,7 @@ public class newRest extends AppCompatActivity {
                         notificationManager.notify(0, notification);
 
                         Toast.makeText(newRest.this, nameReturn + " received a 5 star rating!", Toast.LENGTH_LONG).show();
-                        /*Intent broadcast = new Intent("my.action.string");
+                        *//*Intent broadcast = new Intent("my.action.string");
                         broadcast.putExtra("extra", nameReturn);
                         sendBroadcast(broadcast);*/
                     }

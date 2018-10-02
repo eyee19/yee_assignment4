@@ -8,6 +8,7 @@ package com.example.eyee3.yee_assignment4;
 //Rating bar value: https://stackoverflow.com/questions/7332537/how-to-get-ratingbar-value
 //Dial a number: https://stackoverflow.com/questions/22372561/android-dial-a-phone-number-programmatically
 //Website onClick: https://stackoverflow.com/questions/8352208/how-do-i-launch-a-url-in-browser-from-an-onclick-event-on-a-textview
+//Fixing getSerializable error: https://stackoverflow.com/questions/12774499/getserializableextra-returning-null
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -141,27 +142,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         if(requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {
-                /*String nameReturn = data.getStringExtra("nameReturn");
-                String phoneReturn = data.getStringExtra("phoneReturn");
-                String websiteReturn = data.getStringExtra("websiteReturn");
-                float ratingReturn = data.getFloatExtra("ratingReturn", 1);
-                String categoryReturn = data.getStringExtra("categoryReturn");*/
-
                 Restaurant received = (Restaurant) data.getSerializableExtra("newRest");
-                String nameReturn = received.getName();
-                String phoneReturn = received.getPhone();
-                String websiteReturn = received.getWebsite();
-                float ratingReturn = received.getRating();
-                String categoryReturn = received.getCategory();
 
-                //RestaurantsList.toArray(getIntent().getSerializableExtra("newRest"));
-                //RestaurantsList.add(getIntent().getSerializableExtra("newRest"));
-
-                /*Log.d("MainActivity", "RETURNED VALUES: " + nameReturn);
-                Log.d("MainActivity", "RETURNED VALUES: " + phoneReturn);
-                Log.d("MainActivity", "RETURNED VALUES: " + websiteReturn);
-                Log.d("MainActivity", "RETURNED VALUES: " + ratingReturn);
-                Log.d("MainActivity", "RETURNED VALUES: " + categoryReturn);*/
+                final String nameReturn = received.getName();
+                final String phoneReturn = received.getPhone();
+                final String websiteReturn = received.getWebsite();
+                final float ratingReturn = received.getRating();
+                final String categoryReturn = received.getCategory();
 
                 RestaurantsList.add("Name: " + nameReturn + "\n"
                         + "Phone: " + phoneReturn + "\n"
@@ -170,6 +157,44 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         + "Category: " + categoryReturn);
 
                 adapter.notifyDataSetChanged();
+
+                if (ratingReturn == 5.0) {
+                    final String convertRating = String.valueOf(ratingReturn);
+                    final String convertAgain = "Rating: " + convertRating;
+                    final String name5 = "Name: " + nameReturn;
+                    final String phone5 = "Phone: " + phoneReturn;
+                    final String website5 = "Website: " + websiteReturn;
+                    final String category5 = "Category: " + categoryReturn;
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            MainActivity.this);
+
+                    alertDialogBuilder
+                            .setMessage("A 5 Star Restaurant Was Added! View It?") //Verifies first
+                            .setCancelable(false)
+                            .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    Intent i = new Intent(MainActivity.this, viewRest.class);
+
+                                    i.putExtra("name", name5);
+                                    i.putExtra("phone", phone5);
+                                    i.putExtra("website", website5);
+                                    i.putExtra("rating", convertAgain);
+                                    i.putExtra("category", category5);
+
+                                    startActivityForResult(i, 3);
+                                    //finish();
+                                }
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             }
         }
     }
