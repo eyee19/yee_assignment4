@@ -1,0 +1,17 @@
+McDonalds
+1231231234
+www.mcd.com
+3.0
+American
+
+Chipotle
+0931239393
+www.chipotle.com
+4.0
+Mexican
+
+Subway
+6543219876
+www.subway.net
+2.0
+American
