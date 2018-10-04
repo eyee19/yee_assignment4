@@ -31,10 +31,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
@@ -118,7 +126,36 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 return true;
 
             case R.id.action_load:
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                        (MainActivity.this, android.R.layout.simple_list_item_1, RestaurantsList);
+                restList.setAdapter(adapter);
 
+                try {
+                    InputStream inputreader = getAssets().open("loadList.txt");
+                    BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputreader));
+
+                    Scanner  sc = new Scanner(inputreader);
+                    int count = sc.nextInt();
+                    for (int i = 0; i < count; i++) {
+                        String name = sc.nextLine();
+                        String phone = sc.nextLine();
+                        String website = sc.nextLine();
+                        String rating = sc.nextLine();
+                        String category = sc.nextLine();
+
+                        RestaurantsList.add(name + "\n"
+                                + phone + "\n"
+                                + website + "\n"
+                                + rating + "\n"
+                                + category);
+                    }
+                    buffreader.close() ;
+                    adapter.notifyDataSetChanged();
+                } catch(java.io.FileNotFoundException e){
+                    e.printStackTrace();
+                } catch(java.io.IOException e){
+                    e.printStackTrace();
+                }
                 return true;
 
             case R.id.action_pref:

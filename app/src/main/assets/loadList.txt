@@ -1,17 +1,15 @@
-McDonalds
-1231231234
-www.mcd.com
-3.0
-American
-
-Chipotle
-0931239393
-www.chipotle.com
-4.0
-Mexican
-
-Subway
-6543219876
-www.subway.net
-2.0
-American
+3 Name: McDonalds
+Phone: 1231231234
+Website: www.mcd.com
+Rating: 3.0
+Category: American
+Name: Chipotle
+Phone: 0931239393
+Website: www.chipotle.com
+Rating: 4.0
+Category: Mexican
+Name: Subway
+Phone: 6543219876
+Website: www.subway.net
+Rating: 2.0
+Category: American
