@@ -135,8 +135,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputreader));
 
                     Scanner  sc = new Scanner(inputreader);
-                    int count = sc.nextInt();
-                    for (int i = 0; i < count; i++) {
+                    String count = sc.nextLine();
+                    int convertCount = Integer.valueOf(count);
+                    //int count = sc.nextInt();
+                    for (int i = 0; i < convertCount; i++) {
                         String name = sc.nextLine();
                         String phone = sc.nextLine();
                         String website = sc.nextLine();
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         RestaurantsList.add(name + "\n"
                                 + phone + "\n"
                                 + website + "\n"
-                                + rating + "\n"
+                                + rating + " Stars" + "\n"
                                 + category);
                     }
                     buffreader.close() ;
