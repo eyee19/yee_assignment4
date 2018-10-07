@@ -26,8 +26,15 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/slogan"
+        android:layout_below="@id/name"
+        android:hint="Slogan"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/phone"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/slogan"
         android:hint="Phone Number"
         android:inputType="number"/>
 

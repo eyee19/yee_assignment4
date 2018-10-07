@@ -32,6 +32,7 @@ import org.w3c.dom.Text;
 public class newRest extends AppCompatActivity {
 
     Toolbar myToolbar;
+    EditText slogan;
     EditText name;
     EditText phone;
     EditText website;
@@ -48,6 +49,7 @@ public class newRest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_rest);
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        slogan = (EditText) findViewById(R.id.slogan);
         name = (EditText) findViewById(R.id.name);
         phone = (EditText) findViewById(R.id.phone);
         website = (EditText) findViewById(R.id.website);
@@ -87,13 +89,14 @@ public class newRest extends AppCompatActivity {
                 }
                 else {
                     Intent backHome = new Intent();
+                    String sloganReturn = slogan.getText().toString();
                     String nameReturn = name.getText().toString();
                     String phoneReturn = phone.getText().toString();
                     String websiteReturn = website.getText().toString();
                     float ratingReturn = rating.getRating();
                     String categoryReturn = category.getSelectedItem().toString();
 
-                    Restaurant newRest = new Restaurant(nameReturn, phoneReturn, websiteReturn, ratingReturn, categoryReturn);
+                    Restaurant newRest = new Restaurant(sloganReturn, nameReturn, phoneReturn, websiteReturn, ratingReturn, categoryReturn);
 
                     backHome.putExtra("newRest", newRest);
 

@@ -23,6 +23,7 @@ import android.widget.TextView;
 public class viewRest extends AppCompatActivity {
 
     Toolbar myToolbar;
+    TextView slogan;
     TextView name;
     TextView phone;
     TextView website;
@@ -36,6 +37,7 @@ public class viewRest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_rest);
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        slogan = (TextView) findViewById(R.id.sloganView);
         name = (TextView) findViewById(R.id.nameView);
         phone = (TextView) findViewById(R.id.phoneView);
         website = (TextView) findViewById(R.id.websiteView);
@@ -51,6 +53,7 @@ public class viewRest extends AppCompatActivity {
 
         final Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            slogan.setText(bundle.getString("slogan"));
             name.setText(bundle.getString("name"));
             phone.setText(bundle.getString("phone"));
             website.setText(bundle.getString("website"));

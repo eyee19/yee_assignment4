@@ -1,14 +1,17 @@
 3
+Slogan: I'm lovin' it!
 Name: McDonalds
 Phone: 1231231234
 Website: www.mcd.com
 Rating: 3.5
 Category: American
+Slogan: Food With Integrity!
 Name: Chipotle
 Phone: 0931239393
 Website: www.chipotle.com
 Rating: 4.5
 Category: Mexican
+Slogan: Eat Fresh!
 Name: Subway
 Phone: 6543219876
 Website: www.subway.net

@@ -20,7 +20,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/nameView"
         android:textSize="8pt"
-        android:layout_below="@+id/my_toolbar"/>
+        android:layout_below="@id/my_toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sloganView"
+        android:textSize="8pt"
+        android:layout_below="@id/nameView"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -30,7 +37,7 @@
         android:clickable="true"
         android:focusableInTouchMode="true"
         android:focusable="true"
-        android:layout_below="@+id/nameView"/>
+        android:layout_below="@+id/sloganView"/>
 
     <TextView
         android:layout_width="match_parent"

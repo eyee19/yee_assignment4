@@ -20,6 +20,12 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_sort"
+        android:icon="@drawable/ic_baseline_sort_by_alpha_24px"
+        android:title="@string/sortRest"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_pref"
         android:icon="@drawable/ic_baseline_settings_20px"
         android:title="@string/pref"

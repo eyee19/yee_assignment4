@@ -30,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -41,6 +42,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         restLabel = (TextView) findViewById(R.id.restList);
         restList = (ListView) findViewById(R.id.restaurantList);
 
-        myToolbar.setTitle("Chapman Yelp");
+        myToolbar.setTitle("Local Eatz");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
@@ -73,11 +75,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 String [] separated = currentString.split(Pattern.quote("\n"));
                 Intent i = new Intent(MainActivity.this, viewRest.class);
 
-                i.putExtra("name", separated[0]);
-                i.putExtra("phone", separated[1]);
-                i.putExtra("website", separated[2]);
-                i.putExtra("rating", separated[3]);
-                i.putExtra("category", separated[4]);
+                i.putExtra("slogan", separated[0]);
+                i.putExtra("name", separated[1]);
+                i.putExtra("phone", separated[2]);
+                i.putExtra("website", separated[3]);
+                i.putExtra("rating", separated[4]);
+                i.putExtra("category", separated[5]);
 
                 startActivityForResult(i, 2);
             }
@@ -139,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     int convertCount = Integer.valueOf(count);
                     //int count = sc.nextInt();
                     for (int i = 0; i < convertCount; i++) {
+                        String slogan = sc.nextLine();
                         String name = sc.nextLine();
                         String phone = sc.nextLine();
                         String website = sc.nextLine();
@@ -146,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         String category = sc.nextLine();
 
                         RestaurantsList.add(name + "\n"
+                                + slogan + "\n"
                                 + phone + "\n"
                                 + website + "\n"
                                 + rating + " Stars" + "\n"
@@ -160,8 +165,29 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 }
                 return true;
 
+            case R.id.action_sort:
+                Collections.sort(RestaurantsList);
+                final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1, RestaurantsList);
+
+                if (adapter2.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "No Restaurants to Sort", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                else {
+                    restList.setAdapter(adapter2);
+                    adapter2.notifyDataSetChanged();
+                    return true;
+                }
+
             case R.id.action_pref:
+                ArrayList<Object> allArray = new ArrayList<Object>();
+                for (int i = 1; i < RestaurantsList.size(); i++) {
+                    allArray.add(restList.getItemAtPosition(i));
+                }
+
                 Intent pref = new Intent(MainActivity.this, pref.class);
+                pref.putExtra("list", allArray);
                 startActivityForResult(pref, 2);
                 return true;
 
@@ -183,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             if(resultCode == Activity.RESULT_OK) {
                 Restaurant received = (Restaurant) data.getSerializableExtra("newRest");
 
+                final String sloganReturn = received.getSlogan();
                 final String nameReturn = received.getName();
                 final String phoneReturn = received.getPhone();
                 final String websiteReturn = received.getWebsite();
@@ -190,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 final String categoryReturn = received.getCategory();
 
                 RestaurantsList.add("Name: " + nameReturn + "\n"
+                        + "Slogan: " + sloganReturn + "\n"
                         + "Phone: " + phoneReturn + "\n"
                         + "Website: " + websiteReturn + "\n"
                         + "Rating: " + ratingReturn + " Stars" + "\n"
@@ -200,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 if (ratingReturn == 5.0) {
                     final String convertRating = String.valueOf(ratingReturn);
                     final String convertAgain = "Rating: " + convertRating;
+                    final String slogan5 = "Slogan: " + sloganReturn;
                     final String name5 = "Name: " + nameReturn;
                     final String phone5 = "Phone: " + phoneReturn;
                     final String website5 = "Website: " + websiteReturn;
@@ -215,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 public void onClick(DialogInterface dialog,int id) {
                                     Intent i = new Intent(MainActivity.this, viewRest.class);
 
+                                    i.putExtra("slogan", slogan5);
                                     i.putExtra("name", name5);
                                     i.putExtra("phone", phone5);
                                     i.putExtra("website", website5);
